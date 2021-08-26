@@ -2,7 +2,7 @@
   {
     "path": "posts/2021-08-26-covid19-in-qatar/",
     "title": "COVID19 in Qatar",
-    "description": "Tables communicating the impact of COVID19 in Qatar",
+    "description": "Communicating the impact of COVID19 in Qatar",
     "author": [
       {
         "name": "Ibrahim Al-Hindi",
@@ -11,9 +11,9 @@
     ],
     "date": "2021-08-26",
     "categories": [],
-    "contents": "\r\n\r\n\r\n\r\n\r\n\r\n\r\nData Description\r\nThe data is sourced from the tidycovid19 R package created by Joachim Gassen on Github, which in turn sourced the data from The Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE) publicly available Github repository. JHU CSSE collated the numbers from the responsible body of each country.\r\nThe data contains the following variables:\r\nvariable\r\nclass\r\ndescription\r\ncountry\r\ncharacter\r\nCountry name\r\niso3c\r\ncharacter\r\nISO3c country code as defined by ISO 3166-1 alpha-3\r\ndate\r\ndate\r\nCalendar date\r\nconfirmed\r\nnumeric\r\nCovid-19 cases (accumulated)\r\ndeaths\r\nnumeric\r\nCovid-19 deaths (accumulated)\r\nrecovered\r\nnumeric\r\nCovid-19 recoveries (accumulated)\r\n\r\n\r\n\r\n",
+    "contents": "\r\n\r\n\r\n\r\n\r\n\r\n\r\nData Description\r\nThe data is sourced from the tidycovid19 R package created by Joachim Gassen on Github, which in turn sourced the data from The Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE) publicly available Github repository. JHU CSSE collated the numbers from the responsible body of each country.\r\nThe data contains the following variables:\r\nvariable\r\nclass\r\ndescription\r\ncountry\r\ncharacter\r\nCountry name\r\niso3c\r\ncharacter\r\nISO3c country code as defined by ISO 3166-1 alpha-3\r\ndate\r\ndate\r\nCalendar date\r\ndaily_confirmed\r\nnumeric\r\nDaily increase in Covid-19 cases\r\nacc_confirmed\r\nnumeric\r\nAccumulated Covid-19 cases\r\ndaily_deaths\r\nnumeric\r\nDaily increase in Covid-19 deaths\r\nacc_deaths\r\nnumeric\r\nAccumulated Covid-19 deaths\r\ndaily_recovered\r\nnumeric\r\nDaily increase in Covid-19 recoveries\r\nacc_recovered\r\nnumeric\r\nAccumulated Covid-19 recoveries\r\nSummary Table\r\n\r\n\r\nOverall(N=561)\r\ndaily_confirmed\r\n\r\nMean (SD)\r\n404 (418)\r\nMedian [Min, Max]\r\n239 [0, 2360]\r\nacc_confirmed\r\n\r\nMean (SD)\r\n121000 (73100)\r\nMedian [Min, Max]\r\n132000 [0, 227000]\r\ndaily_deaths\r\n\r\nMean (SD)\r\n1.07 (1.76)\r\nMedian [Min, Max]\r\n0 [0, 10.0]\r\nacc_deaths\r\n\r\nMean (SD)\r\n232 (186)\r\nMedian [Min, Max]\r\n230 [0, 601]\r\ndaily_recovered\r\n\r\nMean (SD)\r\n400 (590)\r\nMedian [Min, Max]\r\n215 [-39.0, 5240]\r\nacc_recovered\r\n\r\nMean (SD)\r\n114000 (73400)\r\nMedian [Min, Max]\r\n129000 [0, 224000]\r\n\r\n\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2021-08-26T17:31:11+10:00",
+    "last_modified": "2021-08-26T19:12:52+10:00",
     "input_file": "covid19-in-qatar.knit.md"
   }
 ]
