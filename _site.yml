@@ -1,11 +1,11 @@
 name: "blog"
-title: "Ibrahim Al-Hindi's Blog"
+title: "Ibrahim Al-Hindi"
 description: |
   Ibrahim Al-Hindi's Blog
 output_dir: "docs"
 navbar:
   right:
-    - text: "Home"
+    - text: "Blog"
       href: index.html
     - text: "About"
       href: about.html

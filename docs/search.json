@@ -6,14 +6,14 @@
       "description": "Some additional details about the blog",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-08-26T16:41:44+10:00"
+      "last_modified": "2021-08-26T16:49:17+10:00"
     },
     {
       "path": "index.html",
-      "title": "Ibrahim Al-Hindi's Blog",
+      "title": "Ibrahim Al-Hindi",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-08-26T16:41:45+10:00"
+      "last_modified": "2021-08-26T16:49:18+10:00"
     }
   ],
   "collections": ["posts/posts.json"]

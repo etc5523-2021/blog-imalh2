@@ -1,5 +1,5 @@
 ---
-title: "Ibrahim Al-Hindi's Blog"
+title: "Ibrahim Al-Hindi"
 site: distill::distill_website
 listing: posts
 ---
