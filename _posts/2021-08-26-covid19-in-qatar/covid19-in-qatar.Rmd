@@ -23,13 +23,22 @@ library(tidycovid19)
 
 
 ```{r data}
-qatar <- download_jhu_csse_covid19_data(cached = TRUE)
+data <- download_jhu_csse_covid19_data(cached = TRUE)
 
-qatar <- qatar %>% 
-  filter(country == "Qatar") %>% 
+qatar <- data %>% 
+  filter(country == "Qatar",
+         date < "2021-08-05") %>% 
   select(-timestamp)
 
-td <- tidycovid19_data_sources
+qatar_1 <- qatar  %>% 
+  mutate(daily_confirmed = c(0, diff(confirmed)),
+         daily_deaths = c(0, diff(deaths)),
+         daily_recovered = c(0, diff(recovered))) %>% 
+  select(country, iso3c, date, daily_confirmed, confirmed, daily_deaths, deaths, daily_recovered, recovered) %>% 
+  rename(acc_confirmed = confirmed,
+         acc_deaths = deaths,
+         acc_recovered = recovered)
+
 ```
 
 
@@ -39,18 +48,28 @@ The data is sourced from the **tidycovid19** R package created by **Joachim Gass
 
 The data contains the following variables:
 
-|**variable**|**class** |**description** |
-|:---------- |:---------|:-----------|
-|country     |character |Country name |
-|iso3c       |character | ISO3c country code as defined by ISO 3166-1 alpha-3 |
-|date        |date      | Calendar date |
-|confirmed   |numeric   | Covid-19 cases (accumulated) |
-|deaths      |numeric   | Covid-19 deaths (accumulated) |
-|recovered   |numeric   | Covid-19 recoveries (accumulated)|
+|**variable**      |**class** |**description** |
+|:-----------------|:---------|:-----------|
+|country           |character |Country name |
+|iso3c             |character | ISO3c country code as defined by ISO 3166-1 alpha-3 |
+|date              |date      | Calendar date |
+|daily_confirmed   |numeric   | Daily increase in Covid-19 cases |
+|acc_confirmed     |numeric   | Accumulated Covid-19 cases |
+|daily_deaths      |numeric   | Daily increase in Covid-19 deaths |
+|acc_deaths        |numeric   | Accumulated Covid-19 deaths |
+|daily_recovered   |numeric   | Daily increase in Covid-19 recoveries |
+|acc_recovered     |numeric   | Accumulated Covid-19 recoveries |
 
 
+# Summary Table
 
+```{r}
+tab1 <- tibble("variables" = names(qatar),
+               "observations" = nrow(qatar),
+               "mean" = )
 
+tab1
+```
 
 
 
