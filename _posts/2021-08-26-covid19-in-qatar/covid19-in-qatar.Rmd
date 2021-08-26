@@ -19,6 +19,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 library(tidyverse)
 library(tidycovid19)
 library(table1)
+library(DT)
 ```
 
 
@@ -70,6 +71,9 @@ table1(~daily_confirmed + acc_confirmed + daily_deaths + acc_deaths + daily_reco
 ```
 
 
+```{r}
+datatable(qatar_1, options = list(pageLength = 10))
+```
 
 
 
