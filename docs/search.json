@@ -3,17 +3,17 @@
     {
       "path": "about.html",
       "title": "About this blog",
-      "description": "Some additional details about the blog",
+      "description": "This blog contains country-specific COVID19 information",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-08-26T16:49:17+10:00"
+      "last_modified": "2021-08-26T16:53:10+10:00"
     },
     {
       "path": "index.html",
       "title": "Ibrahim Al-Hindi",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-08-26T16:49:18+10:00"
+      "last_modified": "2021-08-26T16:53:11+10:00"
     }
   ],
   "collections": ["posts/posts.json"]

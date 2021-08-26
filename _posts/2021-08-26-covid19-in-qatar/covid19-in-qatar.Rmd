@@ -1,0 +1,30 @@
+---
+title: "COVID19 in Qatar"
+description: |
+  Tables communicating impact of COVID19 in Qatar
+author:
+  - name: Ibrahim Al-Hindi
+date: 08-26-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r libraries}
+library(tidyverse)
+library(tidycovid19)
+
+```
+
+
+```{r data}
+qatar <- download_jhu_csse_covid19_data()
+
+qatar <- qatar %>% filter(country == "Qatar")
+```
+
