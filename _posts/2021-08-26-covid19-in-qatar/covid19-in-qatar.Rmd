@@ -1,7 +1,7 @@
 ---
 title: "COVID19 in Qatar"
 description: |
-  Tables communicating impact of COVID19 in Qatar
+  Communicating the impact of COVID19 in Qatar
 author:
   - name: Ibrahim Al-Hindi
 date: 08-26-2021
@@ -23,8 +23,66 @@ library(tidycovid19)
 
 
 ```{r data}
-qatar <- download_jhu_csse_covid19_data()
+qatar <- download_jhu_csse_covid19_data(cached = TRUE)
 
-qatar <- qatar %>% filter(country == "Qatar")
+qatar <- qatar %>% 
+  filter(country == "Qatar") %>% 
+  select(-timestamp)
+
+td <- tidycovid19_data_sources
 ```
+
+
+# Data Description
+
+The data is sourced from the **tidycovid19** R package created by **Joachim Gassen** on [Github](https://github.com/joachim-gassen/tidycovid19), which in turn sourced the data from **The Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE)** publicly available [Github repository](https://github.com/CSSEGISandData/COVID-19). JHU CSSE collated the numbers from the responsible body of each country.
+
+The data contains the following variables:
+
+|**variable**|**class** |**description** |
+|:---------- |:---------|:-----------|
+|country     |character |Country name |
+|iso3c       |character | ISO3c country code as defined by ISO 3166-1 alpha-3 |
+|date        |date      | Calendar date |
+|confirmed   |numeric   | Covid-19 cases (accumulated) |
+|deaths      |numeric   | Covid-19 deaths (accumulated) |
+|recovered   |numeric   | Covid-19 recoveries (accumulated)|
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
