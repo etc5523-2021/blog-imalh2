@@ -17,6 +17,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
 ```{r libraries}
 library(tidyverse)
+library(plyr)
 library(tidycovid19)
 library(table1)
 library(DT)
@@ -24,18 +25,20 @@ library(DT)
 
 
 ```{r data}
-data <- download_jhu_csse_covid19_data(cached = TRUE)
+#covid_data <- download_jhu_csse_covid19_data(cached = TRUE)
 
-qatar <- data %>% 
+#write_csv(covid_data, "../../data/covid_data.csv")
+
+qatar <- covid_data %>%
   filter(country == "Qatar",
-         date < "2021-08-05") %>% 
+         date < "2021-08-05") %>%
   select(-timestamp)
 
-qatar_1 <- qatar  %>% 
+qatar_1 <- qatar  %>%
   mutate(daily_confirmed = c(0, diff(confirmed)),
          daily_deaths = c(0, diff(deaths)),
-         daily_recovered = c(0, diff(recovered))) %>% 
-  select(country, iso3c, date, daily_confirmed, confirmed, daily_deaths, deaths, daily_recovered, recovered) %>% 
+         daily_recovered = c(0, diff(recovered))) %>%
+  select(country, iso3c, date, daily_confirmed, confirmed, daily_deaths, deaths, daily_recovered, recovered) %>%
   rename(acc_confirmed = confirmed,
          acc_deaths = deaths,
          acc_recovered = recovered)
@@ -69,6 +72,11 @@ table1(~daily_confirmed + acc_confirmed + daily_deaths + acc_deaths + daily_reco
        data = qatar_1,
        caption = )
 ```
+What can be noticed from the table is the extremely low number of total deaths at `r max(qatar_1$acc_deaths)` from a total of `r round_any(max(qatar_1$acc_confirmed), 1000, ceiling)` cases, representing a death rate of `r max(qatar_1$acc_deaths)/round_any(max(qatar_1$acc_confirmed), 1000, ceiling) * 100`%
+
+
+
+
 
 
 ```{r}
