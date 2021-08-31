@@ -57,9 +57,9 @@ h1 {
   font-family: Impact, Charcoal, sans-serif;
 }
 
-d-article > p{
-  color: #3e5e78;
-}
+# d-article > p{
+#   color: #3e5e78;
+# }
 ```
 
 
@@ -142,7 +142,7 @@ table1(~daily_confirmed + acc_confirmed + daily_deaths + acc_deaths + daily_reco
 ```
 <br>
 
-What can be noticed from the table is the extremely low number of total deaths at `r max(qatar_1$acc_deaths)` from a total of `r format(plyr::round_any(max(qatar_1$acc_confirmed), 1000, ceiling), scientific = FALSE, big.mark = ",")` cases, representing a death rate of only **`r round(max(qatar_1$acc_deaths)/plyr::round_any(max(qatar_1$acc_confirmed), 1000, ceiling) * 100, 2)`%**, which is extremely low compared to the global average of 2% (World Health Organisation [WHO], 2021). Several factors contributed to this figure. One of which is that Qatar has a relatively low median age at 32.3 years (Worldometer, 2021). Additionally, a fine of up to $53,000 has been instated for anyone who does not wear a face covering in public, and as per a Qatari official "anyone who tests positive for coronavirus immediately receives high-quality medical treatment at no cost" (Tadros, 2020).
+What can be noticed from the table is the extremely low number of total deaths at `r max(qatar_1$acc_deaths)` from a total of `r format(max(qatar_1$acc_confirmed), scientific = FALSE, big.mark = ",")` cases, representing a death rate of only **`r round(max(qatar_1$acc_deaths)/plyr::round_any(max(qatar_1$acc_confirmed), 1000, ceiling) * 100, 2)`%**, which is extremely low compared to the global average of 2% (World Health Organisation [WHO], 2021). Several factors contributed to this figure. One of which is that Qatar has a relatively low median age at 32.3 years (Worldometer, 2021). Additionally, a fine of up to $53,000 has been instated for anyone who does not wear a face covering in public, and as per a Qatari official "anyone who tests positive for coronavirus immediately receives high-quality medical treatment at no cost" (Tadros, 2020).
 
 
 # Daily Figures
@@ -166,31 +166,6 @@ datatable(qatar_1,
 - World Health Organisation (2021). *WHO Coronavirus (COVID-19) Dashboard*. Retrieved from https://covid19.who.int/
 
 - Worldometer (2021). *Qatar Population*. Retrieved from https://www.worldometers.info/world-population/qatar-population/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
