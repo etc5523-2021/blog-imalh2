@@ -42,6 +42,19 @@ body {
 
 .datatables {
   border: 1px solid black;
+  background-color: antiquewhite;
+}
+
+.datatables .figcaption {
+  font-size: 18pt;
+}
+
+table.dataTable tbody tr {
+    background-color: lightseagreen;
+}
+
+table.dataTable.display tbody tr.odd {
+    background-color: palevioletred;
 }
 ```
 
@@ -132,7 +145,8 @@ What can be noticed from the table is the extremely low number of total deaths a
 
 ```{r, layout="l-body-outset"}
 datatable(qatar_1, 
-          options = list(pageLength = 5),
+          options = list(pageLength = 5,
+                         columnDefs = list(list(width = "100px", targets = 0))),
           rownames = FALSE,
           colnames = c("Date", "Daily Confirmed Cases", "Accumulated Confirmed Cases", "Daily Deaths", "Accumulated Deaths", "Daily Recovered", "Accumulated Recovered"),
           caption = "Daily COVID19 Figures in Qatar",
