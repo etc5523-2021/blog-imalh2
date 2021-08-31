@@ -1,7 +1,7 @@
 ---
 title: "COVID19 in Qatar"
 description: |
-  Communicating the impact of COVID19 in Qatar
+  Exploring the impact of COVID19 in Qatar
 author:
   - name: Ibrahim Al-Hindi
 date: 08-26-2021
@@ -17,7 +17,6 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
 ```{r libraries}
 library(tidyverse)
-library(plyr)
 library(tidycovid19)
 library(table1)
 library(DT)
@@ -29,12 +28,14 @@ library(DT)
 
 #write_csv(covid_data, "../../data/covid_data.csv")
 
-qatar <- covid_data %>%
+data <- read_csv("../../data/covid_data.csv")
+
+qatar <- data %>%
   filter(country == "Qatar",
          date < "2021-08-05") %>%
   select(-timestamp)
 
-qatar_1 <- qatar  %>%
+qatar_1 <- qatar %>%
   mutate(daily_confirmed = c(0, diff(confirmed)),
          daily_deaths = c(0, diff(deaths)),
          daily_recovered = c(0, diff(recovered))) %>%
@@ -72,7 +73,9 @@ table1(~daily_confirmed + acc_confirmed + daily_deaths + acc_deaths + daily_reco
        data = qatar_1,
        caption = )
 ```
-What can be noticed from the table is the extremely low number of total deaths at `r max(qatar_1$acc_deaths)` from a total of `r round_any(max(qatar_1$acc_confirmed), 1000, ceiling)` cases, representing a death rate of `r max(qatar_1$acc_deaths)/round_any(max(qatar_1$acc_confirmed), 1000, ceiling) * 100`%
+<br>
+
+What can be noticed from the table is the extremely low number of total deaths at `r max(qatar_1$acc_deaths)` from a total of `r format(plyr::round_any(max(qatar_1$acc_confirmed), 1000, ceiling), scientific = FALSE, big.mark = ",")` cases, representing a death rate of only **`r round(max(qatar_1$acc_deaths)/plyr::round_any(max(qatar_1$acc_confirmed), 1000, ceiling) * 100, 2)`%**, which is extremely low compared to the global average of 2% (World Health Organisation [WHO], 2021). Several factors contributed to this figure. One of which is that Qatar has a relatively low median age at 32.3 years (Worldometer, 2021). Additionally, a fine of up to $53,000 has been instated for anyone who does not wear a face covering in public, and as per a Qatari official "anyone who tests positive for coronavirus immediately receives high-quality medical treatment at no cost" (Tadros, 2020).
 
 
 
@@ -85,7 +88,13 @@ datatable(qatar_1, options = list(pageLength = 10))
 
 
 
+# References
 
+- Tadros, A. (2020, May 15). Coronavirus spreads "exponentially" in Qatar's labor camps. *CBS News*. Retrieved from https://www.cbsnews.com/news/coronavirus-in-qatar-spreads-exponentially-in-migrant-worker-labor-camps/
+
+- World Health Organisation (2021). *WHO Coronavirus (COVID-19) Dashboard*. Retrieved from https://covid19.who.int/
+
+- Worldometer (2021). *Qatar Population*. Retrieved from https://www.worldometers.info/world-population/qatar-population/
 
 
 
