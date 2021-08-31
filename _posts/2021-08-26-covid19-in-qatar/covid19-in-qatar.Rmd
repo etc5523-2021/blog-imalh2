@@ -20,6 +20,7 @@ library(tidyverse)
 library(tidycovid19)
 library(table1)
 library(DT)
+library(glue)
 ```
 
 
@@ -66,20 +67,36 @@ The data contains the following variables:
 |acc_recovered     |numeric   | Accumulated Covid-19 recoveries |
 
 
-# Summary Table
+# Summary Statistics
 
 ```{r}
+
+label(qatar_1$daily_confirmed) <- "Daily Confirmed Cases"
+label(qatar_1$acc_confirmed) <- "Accumulated Confirmed Cases"
+label(qatar_1$daily_deaths) <- "Daily Deaths"
+label(qatar_1$acc_deaths) <- "Accumulated Deaths"
+label(qatar_1$daily_recovered) <- "Daily Recovered"
+label(qatar_1$acc_recovered) <- "Accumulated Recovered"
+
+my.render.cont <- function(x) {
+    with(stats.apply.rounding(stats.default(x), round.median.min.max = FALSE), c("",
+        "Mean (SD)" = glue("{MEAN} ({SD})"),
+        "Median [Min, Max]" = glue("{MEDIAN} [{MIN}, {MAX}]")))
+}
+  
 table1(~daily_confirmed + acc_confirmed + daily_deaths + acc_deaths + daily_recovered + acc_recovered,
        data = qatar_1,
-       caption = )
+       render.continuous=my.render.cont,
+       topclass="Rtable1-grid Rtable1-shade Rtable1-times",
+       caption = "Summary statistics of COVID19 in Qatar. The accumulated death rate at 601 is extremely low compared to the number of accumulated cases at 227,000")
 ```
 <br>
 
 What can be noticed from the table is the extremely low number of total deaths at `r max(qatar_1$acc_deaths)` from a total of `r format(plyr::round_any(max(qatar_1$acc_confirmed), 1000, ceiling), scientific = FALSE, big.mark = ",")` cases, representing a death rate of only **`r round(max(qatar_1$acc_deaths)/plyr::round_any(max(qatar_1$acc_confirmed), 1000, ceiling) * 100, 2)`%**, which is extremely low compared to the global average of 2% (World Health Organisation [WHO], 2021). Several factors contributed to this figure. One of which is that Qatar has a relatively low median age at 32.3 years (Worldometer, 2021). Additionally, a fine of up to $53,000 has been instated for anyone who does not wear a face covering in public, and as per a Qatari official "anyone who tests positive for coronavirus immediately receives high-quality medical treatment at no cost" (Tadros, 2020).
 
 
-
-
+<br>
+<br>
 
 
 ```{r}
