@@ -15,13 +15,13 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ```
 
 ```{css}
-.Rtable1 table, table.Rtable1 {
-  background-color: #8A1538;
+.Rtable1 table, table.Rtable1{
+  background-color: antiquewhite;
 }
 
 .Rtable1 th {
-    background-color: white;
-    color: black;
+    background-color: darkseagreen;
+    color: white;
 }
 
 .Rtable1 .firstrow, .Rtable1 .firstrow ~ td {
@@ -32,9 +32,16 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
     font-style: italic;
 }
 .Rtable1 td.firstrow.rowlabel {
-    background-color: yellow;
     color: red;
     font-size: 12pt;
+}
+
+body {
+  background-color: rgba(138,21,56,0.3);
+}
+
+.datatables {
+  border: 1px solid black;
 }
 ```
 
@@ -123,7 +130,7 @@ What can be noticed from the table is the extremely low number of total deaths a
 
 # Daily Figures
 
-```{r}
+```{r, layout="l-body-outset"}
 datatable(qatar_1, 
           options = list(pageLength = 5),
           rownames = FALSE,
