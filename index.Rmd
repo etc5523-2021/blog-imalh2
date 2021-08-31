@@ -3,3 +3,11 @@ title: "Ibrahim Al-Hindi"
 site: distill::distill_website
 listing: posts
 ---
+
+```{css, echo = FALSE}
+h1.posts-list-caption {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  color: red;
+}
+```
+

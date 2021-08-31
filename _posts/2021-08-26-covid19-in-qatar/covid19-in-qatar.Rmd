@@ -52,6 +52,14 @@ table.dataTable tbody tr {
 table.dataTable.display tbody tr.odd {
     background-color: palevioletred;
 }
+
+h1 {
+  font-family: Impact, Charcoal, sans-serif;
+}
+
+d-article > p{
+  color: #3e5e78;
+}
 ```
 
 
