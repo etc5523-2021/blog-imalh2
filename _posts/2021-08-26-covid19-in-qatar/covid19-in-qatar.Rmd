@@ -10,7 +10,6 @@ output:
     self_contained: false
 ---
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ```
@@ -34,13 +33,13 @@ data <- read_csv("../../data/covid_data.csv")
 qatar <- data %>%
   filter(country == "Qatar",
          date < "2021-08-05") %>%
-  select(-timestamp)
+  select(-country, -timestamp, -iso3c)
 
 qatar_1 <- qatar %>%
   mutate(daily_confirmed = c(0, diff(confirmed)),
          daily_deaths = c(0, diff(deaths)),
          daily_recovered = c(0, diff(recovered))) %>%
-  select(country, iso3c, date, daily_confirmed, confirmed, daily_deaths, deaths, daily_recovered, recovered) %>%
+  select(date, daily_confirmed, confirmed, daily_deaths, deaths, daily_recovered, recovered) %>%
   rename(acc_confirmed = confirmed,
          acc_deaths = deaths,
          acc_recovered = recovered)
@@ -95,12 +94,15 @@ table1(~daily_confirmed + acc_confirmed + daily_deaths + acc_deaths + daily_reco
 What can be noticed from the table is the extremely low number of total deaths at `r max(qatar_1$acc_deaths)` from a total of `r format(plyr::round_any(max(qatar_1$acc_confirmed), 1000, ceiling), scientific = FALSE, big.mark = ",")` cases, representing a death rate of only **`r round(max(qatar_1$acc_deaths)/plyr::round_any(max(qatar_1$acc_confirmed), 1000, ceiling) * 100, 2)`%**, which is extremely low compared to the global average of 2% (World Health Organisation [WHO], 2021). Several factors contributed to this figure. One of which is that Qatar has a relatively low median age at 32.3 years (Worldometer, 2021). Additionally, a fine of up to $53,000 has been instated for anyone who does not wear a face covering in public, and as per a Qatari official "anyone who tests positive for coronavirus immediately receives high-quality medical treatment at no cost" (Tadros, 2020).
 
 
-<br>
-<br>
-
+# Daily Figures
 
 ```{r}
-datatable(qatar_1, options = list(pageLength = 10))
+datatable(qatar_1, 
+          options = list(pageLength = 5),
+          rownames = FALSE,
+          colnames = c("Date", "Daily Confirmed Cases", "Accumulated Confirmed Cases", "Daily Deaths", "Accumulated Deaths", "Daily Recovered", "Accumulated Recovered"),
+          caption = "Daily COVID19 Figures in Qatar",
+          filter = 'top')
 ```
 
 
