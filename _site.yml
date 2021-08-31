@@ -1,5 +1,6 @@
 name: "blog"
 title: "Ibrahim Al-Hindi"
+theme: theme.css
 description: |
   Ibrahim Al-Hindi's Blog
 output_dir: "docs"
@@ -10,3 +11,4 @@ navbar:
     - text: "About"
       href: about.html
 output: distill::distill_article
+            

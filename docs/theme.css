@@ -1,0 +1,11 @@
+body {
+  background-color: rgba(138,21,56,0.3);
+}
+
+.distill-site-header {
+    --title-size: 18px;
+    --text-color: #F2F3F4;
+    --text-size: 15px;
+    --hover-color: white;
+    --bkgd-color: teal;
+}

@@ -36,10 +36,6 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
     font-size: 12pt;
 }
 
-body {
-  background-color: rgba(138,21,56,0.3);
-}
-
 .datatables {
   border: 1px solid black;
   background-color: antiquewhite;
