@@ -161,13 +161,24 @@ datatable(qatar_1,
 
 # References
 
+- Benjamin Rich (2021). table1: Tables of Descriptive Statistics in HTML. R package version 1.4.2. https://CRAN.R-project.org/package=table1
+
+- Dong E, Du H, Gardner L. An interactive web-based dashboard to track COVID-19 in real time. Lancet Inf Dis. 20(5):533-534. doi: 10.1016/S1473-3099(20)30120-1
+
+- Jim Hester (2020). glue: Interpreted String Literals. R package version 1.4.2. https://CRAN.R-project.org/package=glue
+
+- Joachim Gassen (2021). tidycovid19: Download, Tidy and Visualize Covid-19 Related Data. R package version 0.0.0.9000.
+
+- R Core Team (2021). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL
+  https://www.R-project.org/.
+
 - Tadros, A. (2020, May 15). Coronavirus spreads "exponentially" in Qatar's labor camps. *CBS News*. Retrieved from https://www.cbsnews.com/news/coronavirus-in-qatar-spreads-exponentially-in-migrant-worker-labor-camps/
+
+- Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43), 1686, https://doi.org/10.21105/joss.01686
 
 - World Health Organisation (2021). *WHO Coronavirus (COVID-19) Dashboard*. Retrieved from https://covid19.who.int/
 
 - Worldometer (2021). *Qatar Population*. Retrieved from https://www.worldometers.info/world-population/qatar-population/
 
-
-
-
-
+- Yihui Xie, Joe Cheng and Xianying Tan (2021). DT: A Wrapper of the JavaScript Library 'DataTables'. R package version 0.18.
+  https://CRAN.R-project.org/package=DT
