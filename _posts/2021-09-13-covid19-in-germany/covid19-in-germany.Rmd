@@ -69,7 +69,7 @@ ger %>%
     color = "#33C4FF", fill = "#33C4FF") +
   labs(x = "Date",
        y = "Daily Cases",
-       title = "Germany experienced two waves of COVID19:\nthe first was between October 2020 and February 2021,\nthe second was between March and May 2021") +
+       title = "Germany experienced two major waves of COVID19:\nthe first was between October 2020 and February 2021,\nthe second was between March and May 2021") +
   scale_x_date(breaks = seq.Date(as.Date("2020-03-01"), as.Date("2021-08-01"), by = "3 months"),
                date_labels = "%Y-%m",
                expand = c(0,0)) +
@@ -87,7 +87,7 @@ ger %>%
 
 ```
 
-The figure shows that Germany experienced two major waves. The first wave was between October 2020 and Febraury 2021, and the second wave was between March and May 2021. The peak of the first wave was 49,044 cases per day, while the peak of the second wave was 31,721 cases per day.
+The figure shows that Germany experienced one minor wave in early 2020 and two major waves. The first major wave was between October 2020 and Febraury 2021, and the major second wave was between March and May 2021. The peak of the first wave was 49,044 cases per day, while the peak of the second wave was 31,721 cases per day.
 
 
 # COVID19 Daily Vaccinations Trens
@@ -119,6 +119,10 @@ ger %>% filter(date > "2020-12-26") %>%
         plot.title = element_text(margin = margin(b = 20)),
         axis.line.x = element_line(colour = "darkgrey"))
 ```
+
+The graph shows that Germany ramped it its vaccination efforts starting in early April 2021 with a peak of 1,427,070 vaccinations administered on June 9, 2021.
+
+
 
 ```{r}
 ger %>% 
