@@ -70,11 +70,28 @@ ger %>%
     data = filter(ger, (date > "2020-10-15" & date < "2021-02-10") | (date > "2021-03-01" & date < "2021-05-20")),
     color = "#33C4FF") +
   labs(x = "Date",
-       y = "Daily Cases") +
-  scale_x_date(date_breaks = "3 months",
+       y = "Daily Cases",
+       title = "Germany experienced two waves of COVID19:\nthe first was between October 2020 and February 2021,\nthe second was between March and May 2021") +
+  scale_x_date(breaks = seq.Date(as.Date("2020-03-01"), as.Date("2021-08-01"), by = "3 months"),
                date_labels = "%Y-%m",
-               )
+               expand = c(0,0)) +
+  scale_y_continuous(labels = scales::label_comma(),
+                     expand = c(0,0),
+                     limits = c(0,50000)) +
+  theme(plot.margin = margin(r = 50),
+        plot.background = element_rect(fill = "white"),
+        panel.background = element_rect(fill = "white"),
+        panel.grid.major.y = element_line(color = "gold", linetype = "dashed"),
+        text = element_text(colour = "brown"),
+        axis.text = element_text(colour = "black"),
+        plot.title.position = "plot",
+        plot.title = element_text(margin = margin(b = 20)))
+  
+
+
 ```
+
+
 
 
 ```{r}
