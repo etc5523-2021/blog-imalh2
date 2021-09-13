@@ -31,7 +31,7 @@ ger <- covid_data %>%
          daily_deaths = c(0, diff(deaths)),
          daily_recovered = c(0, diff(recovered)),
          daily_vaccinations = c(0, diff(total_vaccinations))) %>% 
-  select(date, daily_confirmed, confirmed, daily_deaths, deaths, daily_recovered, recovered, icu_patients, daily_vaccinations, total_vaccinations) %>% 
+  select(date, daily_confirmed, confirmed, daily_deaths, deaths, daily_recovered, recovered, daily_vaccinations, total_vaccinations, icu_patients) %>% 
   rename(acc_confirmed = confirmed,
          acc_deaths = deaths,
          acc_recovered = recovered,
@@ -41,7 +41,22 @@ ger <- covid_data %>%
 
 ```
 
+# Data Description
 
+The data is sourced from the **tidycovid19** R package created by **Joachim Gassen** on [Github](https://github.com/joachim-gassen/tidycovid19). The data in this package is collated from various sources and consists of the countries of the world and a multitude of variables that have been combined from the different data sources. For the purposes of this blogpost, the data has been filtered to Germany and the variables maintained are the following:
+
+|**variable**      |**class** |**description** |
+|:-----------------|:---------|:-----------|
+|date              |date      | Calendar date |
+|daily_confirmed   |numeric   | Daily increase in Covid-19 cases |
+|acc_confirmed     |numeric   | Accumulated Covid-19 cases |
+|daily_deaths      |numeric   | Daily increase in Covid-19 deaths |
+|acc_deaths        |numeric   | Accumulated Covid-19 deaths |
+|daily_recovered   |numeric   | Daily increase in Covid-19 recoveries |
+|acc_recovered     |numeric   | Accumulated Covid-19 recoveries |
+|daily_vaccinations|numeric   | Daily increase in Covid-19 vaccinations |
+|acc_vaccinations  |numeric   | Accumulated Covid-19 vaccinations |
+|icu_patients      |numeric   | number of patients in ICU |
 
 
 
