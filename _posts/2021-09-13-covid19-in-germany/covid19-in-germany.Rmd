@@ -17,6 +17,8 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ```{r libraries}
 library(tidyverse)
 library(tidycovid19)
+library(plotly)
+library(lubridate)
 ```
 
 
@@ -24,7 +26,8 @@ library(tidycovid19)
 covid_data <- download_merged_data(cached = TRUE, silent = TRUE)
 
 ger <- covid_data %>%
-  filter(country == "Germany") %>% 
+  filter(country == "Germany",
+         date < "2021-08-05") %>% 
   select(country:recovered, icu_patients, total_vaccinations) %>% 
   mutate(across(icu_patients : total_vaccinations, ~ replace_na(.x, 0)),
          daily_confirmed = c(0, diff(confirmed)),
@@ -36,8 +39,6 @@ ger <- covid_data %>%
          acc_deaths = deaths,
          acc_recovered = recovered,
          acc_vaccinations = total_vaccinations)
-
-
 
 ```
 
@@ -59,13 +60,41 @@ The data is sourced from the **tidycovid19** R package created by **Joachim Gass
 |icu_patients      |numeric   | number of patients in ICU |
 
 
+# COVID19 Daily Cases Trend
+
+```{r}
+ger %>% 
+  ggplot(aes(date, daily_confirmed)) + 
+  geom_col(color = "darkgrey") +
+  geom_col(
+    data = filter(ger, (date > "2020-10-15" & date < "2021-02-10") | (date > "2021-03-01" & date < "2021-05-20")),
+    color = "#33C4FF") +
+  labs(x = "Date",
+       y = "Daily Cases") +
+  scale_x_date(date_breaks = "3 months",
+               date_labels = "%Y-%m",
+               )
+```
 
 
+```{r}
+ger %>% 
+  ggplot(aes(date, daily_deaths)) + 
+  geom_col()
+```
+
+```{r}
+ger %>% 
+  ggplot(aes(date, daily_vaccinations)) + 
+  geom_col()
+```
 
 
-
-
-
+```{r}
+ger %>% 
+  ggplot(aes(date, icu_patients)) + 
+  geom_area()
+```
 
 
 
