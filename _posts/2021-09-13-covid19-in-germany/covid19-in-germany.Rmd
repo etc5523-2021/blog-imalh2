@@ -17,8 +17,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ```{r libraries}
 library(tidyverse)
 library(tidycovid19)
-library(plotly)
-library(lubridate)
+library(patchwork)
 ```
 
 ```{r data}
@@ -61,7 +60,7 @@ The data is sourced from the **tidycovid19** R package created by **Joachim Gass
 # COVID19 Daily Cases Trend
 
 ```{r}
-ger %>% 
+p1 <- ger %>% 
   ggplot(aes(date, daily_confirmed)) + 
   geom_col(fill = "darkgrey", colour = "darkgrey") +
   geom_col(
@@ -70,7 +69,8 @@ ger %>%
   labs(x = "Date",
        y = "Daily Cases",
        title = "Germany experienced two major waves of COVID19:\nthe first was between October 2020 and February 2021,\nthe second was between March and May 2021") +
-  scale_x_date(breaks = seq.Date(as.Date("2020-03-01"), as.Date("2021-08-01"), by = "3 months"),
+  scale_x_date(limits = c(as.Date("2020-01-20"), as.Date("2021-08-20")),
+               breaks = seq.Date(as.Date("2020-03-01"), as.Date("2021-08-20"), by = "3 months"),
                date_labels = "%Y-%m",
                expand = c(0,0)) +
   scale_y_continuous(labels = scales::label_comma(),
@@ -83,8 +83,10 @@ ger %>%
         text = element_text(colour = "brown"),
         axis.text = element_text(colour = "black"),
         plot.title.position = "plot",
-        plot.title = element_text(margin = margin(b = 20)))
+        plot.title = element_text(margin = margin(b = 20)),
+        axis.line.x = element_line(colour = "darkgrey"))
 
+p1
 ```
 
 The figure shows that Germany experienced one minor wave in early 2020 and two major waves. The first major wave was between October 2020 and Febraury 2021, and the major second wave was between March and May 2021. The peak of the first wave was 49,044 cases per day, while the peak of the second wave was 31,721 cases per day.
@@ -93,7 +95,7 @@ The figure shows that Germany experienced one minor wave in early 2020 and two m
 # COVID19 Daily Vaccinations Trend
 
 ```{r}
-ger %>% filter(date > "2020-12-26") %>% 
+p2 <- ger %>% filter(date > "2020-12-26") %>% 
   ggplot(aes(date, daily_vaccinations)) + 
   geom_col(fill = "darkgrey", color = "darkgrey") +
   geom_col(
@@ -118,6 +120,8 @@ ger %>% filter(date > "2020-12-26") %>%
         plot.title.position = "plot",
         plot.title = element_text(margin = margin(b = 20)),
         axis.line.x = element_line(colour = "darkgrey"))
+
+p2
 ```
 
 The graph shows that Germany ramped it its vaccination efforts starting in early April 2021 with a peak of 1,427,070 vaccinations administered on June 9, 2021. As per [Our World In Data](https://ourworldindata.org/covid-vaccinations?country=OWID_WRL#citation), Germany's vaccination rate currently stands at 62.3%.
@@ -125,7 +129,63 @@ The graph shows that Germany ramped it its vaccination efforts starting in early
 
 
 ```{r}
-ger %>% 
+p4 <- ger %>% 
   ggplot(aes(date, icu_patients)) + 
   geom_area()
 ```
+
+
+
+
+
+```{r, fig.height=6}
+p3 <- ger %>% 
+  ggplot(aes(date, daily_vaccinations)) + 
+  geom_col(fill = "darkgrey", color = "darkgrey") +
+  geom_col(
+    data = filter(ger, date > "2021-04-06" ), fill = "#33C4FF", colour = "#33C4FF") +
+  labs(x = "Date",
+       y = "Daily Vaccinations",
+       title = "Germany began vaccinating at the end of 2020\nand numbers ramped up by early April 2021") +
+  scale_x_date(limits = c(as.Date("2020-01-20"), as.Date("2021-08-20")),
+               breaks = seq.Date(as.Date("2020-03-01"), as.Date("2021-08-20"), by = "3 months"),
+               date_labels = "%Y-%m",
+               expand = c(0,0)) +
+  scale_y_continuous(limits = c(0, 1500000),
+                     breaks = seq(250000, 1500000, 250000),
+                     labels = scales::label_comma(),
+                     expand = c(0,0)) +
+  theme(plot.margin = margin(t = 10,b = 10),
+        plot.background = element_rect(fill = "white"),
+        panel.background = element_rect(fill = "white"),
+        panel.grid.major.y = element_line(color = "gold", linetype = "dashed"),
+        text = element_text(colour = "brown"),
+        axis.text = element_text(colour = "black"),
+        plot.title.position = "plot",
+        plot.title = element_text(margin = margin(b = 20)),
+        axis.line.x = element_line(colour = "darkgrey"))
+
+
+p1 / p3 / p4
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
