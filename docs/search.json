@@ -6,14 +6,14 @@
       "description": "This blog contains country-specific COVID19 information",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-14T09:16:29+10:00"
+      "last_modified": "2021-09-14T15:20:13+10:00"
     },
     {
       "path": "index.html",
       "title": "My Blog",
       "author": [],
       "contents": "\r\n\r\n\r\nh1.posts-list-caption {\r\n  font-family: \"Comic Sans MS\", cursive, sans-serif;\r\n  color: red;\r\n}\r\n\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-14T09:16:29+10:00"
+      "last_modified": "2021-09-14T15:20:14+10:00"
     }
   ],
   "collections": ["posts/posts.json"]
