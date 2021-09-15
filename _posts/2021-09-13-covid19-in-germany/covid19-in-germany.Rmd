@@ -205,7 +205,7 @@ p1 / p2 / p3
 
 ```
 
-We can see from the figure that the number of ICU patients increased in line with the number of COVID19 cases. Likewise, the number of ICU patients fell as the vaccine rate increased.
+We can see from the figure that the number of ICU patients increased in line with the number of COVID19 cases. Likewise, the number of ICU patients fell as the vaccine rate increased. This highlights the positive impact of the vaccines in preventing hospitalization to COVID19 as a minimum.
 
 
 # References
