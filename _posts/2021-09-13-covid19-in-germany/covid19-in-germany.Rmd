@@ -107,7 +107,7 @@ p5 <- ger %>% group_by(country) %>%
   mutate(vaccination_rate = acc_vaccinations / population * 100) %>%
   ggplot(aes( vaccination_rate, fct_reorder(country, vaccination_rate), fill = income, text = vaccination_rate)) +
   geom_col() +
-  labs(title = "High income countries dominate vaccination rates in Europe",
+  labs(title = "High income countries dominate vaccination rates",
        x = "Vaccination Rate",
        y = "Country",
        fill = "")+
