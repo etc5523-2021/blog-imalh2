@@ -6,11 +6,11 @@ The URL of this blog is https://imalh2-blog.netlify.app/.
 
 ## Blog Post 1
 
-This assessment is due Fri Sep 17 2021 11.55PM AEST.
+This assessment is due Fri Sep 03 2021 11.55PM AEST.
 
-My selected country is Germany.
+My selected country is Qatar.
 
-The relevant blog post for this assessment is in https://imalh2-blog.netlify.app/posts/2021-09-13-covid19-in-germany/
+The relevant blog post for this assessment is in https://imalh2-blog.netlify.app/posts/2021-08-26-covid19-in-qatar/
 
 - [ ] Selected a country
 - [ ] Website with R markdown 
@@ -26,9 +26,9 @@ The relevant blog post for this assessment is in https://imalh2-blog.netlify.app
 
 This assessment is due Fri Sep 17 2021 11.55PM AEST.
 
-My selected country is [FILL].
+My selected country is Germany.
 
-The relevant blog post for this assessment is in [FILL].html
+The relevant blog post for this assessment is in https://imalh2-blog.netlify.app/posts/2021-09-13-covid19-in-germany/
 
 - [ ] Selected a new country
 - [ ] Data Story 1
