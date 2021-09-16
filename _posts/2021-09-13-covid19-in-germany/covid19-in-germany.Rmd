@@ -18,21 +18,23 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 library(tidyverse)
 library(tidycovid19)
 library(patchwork)
+library(plotly)
 ```
 
 ```{r data}
 covid_data <- download_merged_data(cached = TRUE, silent = TRUE)
 
 ger <- covid_data %>%
-  filter(country == "Germany",
-         date < "2021-08-05") %>% 
-  select(country:recovered, icu_patients, total_vaccinations) %>% 
+  filter(date < "2021-08-05",
+         region == "Europe & Central Asia") %>% 
+  select(country:recovered, icu_patients, total_vaccinations, income, population) %>% 
   mutate(across(icu_patients : total_vaccinations, ~ replace_na(.x, 0)),
          daily_confirmed = c(0, diff(confirmed)),
          daily_deaths = c(0, diff(deaths)),
          daily_recovered = c(0, diff(recovered)),
-         daily_vaccinations = c(0, diff(total_vaccinations))) %>% 
-  select(date, daily_confirmed, confirmed, daily_deaths, deaths, daily_recovered, recovered, daily_vaccinations, total_vaccinations, icu_patients) %>% 
+         daily_vaccinations = c(0, diff(total_vaccinations)),
+         income = as.factor(income)) %>% 
+  select(country, date, daily_confirmed, confirmed, daily_deaths, deaths, daily_recovered, recovered, daily_vaccinations, total_vaccinations, icu_patients, income, population) %>% 
   rename(acc_confirmed = confirmed,
          acc_deaths = deaths,
          acc_recovered = recovered,
@@ -56,16 +58,18 @@ The data is sourced from the **tidycovid19** R package created by **Joachim Gass
 | daily_vaccinations | numeric   | Daily increase in Covid-19 vaccinations |
 | acc_vaccinations   | numeric   | Accumulated Covid-19 vaccinations       |
 | icu_patients       | numeric   | number of patients in ICU               |
+| income             | factor    | income level of the country             |
+| population         | numeric   | population of the country               |
 
 # COVID19 Daily Cases Trend
 
 ```{r}
-ger %>% 
+ger %>% filter(country == "Germany") %>% 
   ggplot(aes(date, daily_confirmed)) + 
   geom_col(fill = "azure4", colour = "azure4") +
   geom_col(
-    data = filter(ger, (date > "2020-10-15" & date < "2021-02-10") | (date > "2021-03-01" & date < "2021-05-20")),
-    color = "coral3", fill = "coral3") +
+    data = filter(ger, (date > "2020-10-15" & date < "2021-02-10") | (date > "2021-03-01" & date < "2021-05-20"), country == "Germany"),
+    color = "#80cb9f", fill = "#80cb9f") +
   labs(x = "Date",
        y = "Daily Cases",
        title = "Germany experienced two major waves of COVID19:\nthe first was between October 2020 and February 2021,\nthe second was between March and May 2021") +
@@ -91,14 +95,44 @@ ger %>%
 The figure shows that Germany experienced one minor wave in early 2020 and two major waves. The first major wave was between October 2020 and Febraury 2021, and the major second wave was between March and May 2021. The peak of the first wave was 49,044 cases per day, while the peak of the second wave was 31,721 cases per day.
 
 
-# COVID19 Daily Vaccinations Trend
+# COVID19 Daily Vaccinations Trend in Europe and Germany
+
+```{r, fig.height= 8}
+p5 <- ger %>% group_by(country) %>% 
+  filter(acc_vaccinations != 0) %>% 
+  mutate(new_date = max(date),
+         new_date = if_else(new_date == "2021-08-01", "2021-08-04", as.character(new_date)),
+         new_date = as.Date(new_date)) %>% 
+  filter(date == max(date)) %>% 
+  mutate(vaccination_rate = acc_vaccinations / population * 100) %>%
+  ggplot(aes( vaccination_rate, fct_reorder(country, vaccination_rate), fill = income, text = vaccination_rate)) +
+  geom_col() +
+  labs(title = "High income countries dominate vaccination rates in Europe",
+       x = "Vaccination Rate",
+       y = "Country",
+       fill = "")+
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_continuous(label = scales::label_percent(scale = 1),
+                     expand = c(0,0)) +
+  theme(panel.background = element_rect(fill = "lightblue"),
+        plot.background = element_rect(fill = "lightblue"),
+        panel.grid = element_blank(),
+        panel.grid.major.x = element_line(color = "white"),
+        axis.line = element_line(color = "white"),
+        plot.title.position = "plot",
+        legend.background = element_rect(fill = "lightblue"))
+
+ggplotly(p5, tooltip = "text")
+```
+The figure above shows that country in the high income category occupy the top of vaccination rates, however it is important to note that the majority of countries in Europe are high income countries. Gibraltar can be highlighted in particular as possessing a vaccination rate higher than 200% at 232%, this could indicate that Gibraltar not only administered the two required doses for most citizens, but might in fact started to provide booster shots.
+
 
 ```{r}
-ger %>% filter(date > "2020-12-26") %>% 
+ger %>% filter(country == "Germany", date > "2020-12-26") %>% 
   ggplot(aes(date, daily_vaccinations)) + 
   geom_col(fill = "azure4", color = "azure4") +
   geom_col(
-    data = filter(ger, date > "2021-04-06" ), fill = "coral3", colour = "coral3") +
+    data = filter(ger, country == "Germany", date > "2021-04-06" ), fill = "#80cb9f", colour = "#80cb9f") +
   labs(x = "Date",
        y = "Daily Vaccinations",
        title = "Germany began vaccinating at the end of 2020\nand numbers ramped up by early April 2021") +
@@ -122,15 +156,15 @@ ger %>% filter(date > "2020-12-26") %>%
         axis.line = element_line(colour = "white"))
 ```
 
-The graph shows that Germany ramped it its vaccination efforts starting in early April 2021 with a peak of 1,427,070 vaccinations administered on June 9, 2021. As per [Our World In Data](https://ourworldindata.org/covid-vaccinations?country=OWID_WRL#citation), Germany's vaccination rate currently stands at 62.3%.
+The graph shows that Germany ramped it its vaccination efforts starting in early April 2021 with a peak of 1,427,070 vaccinations administered on June 9, 2021. As per [Our World In Data](https://ourworldindata.org/covid-vaccinations?country=OWID_WRL#citation), Germany's fully vaccinated rate currently stands at 62.3%.
 
 ```{r, fig.height=10}
-p1 <- ger %>% 
+p1 <- ger %>% filter(country == "Germany") %>% 
   ggplot(aes(date, daily_confirmed)) + 
   geom_col(fill = "azure4", colour = "azure4") +
   geom_col(
-    data = filter(ger, (date > "2020-10-15" & date < "2021-02-10") | (date > "2021-03-01" & date < "2021-05-20")),
-    color = "coral3", fill = "coral3") +
+    data = filter(ger, (date > "2020-10-15" & date < "2021-02-10") | (date > "2021-03-01" & date < "2021-05-20"), country == "Germany"),
+    color = "#80cb9f", fill = "#80cb9f") +
   labs(x = "",
        y = "Daily Cases",
        title = "Germany's ICU numbers correspond to COVID19 waves and vaccinations") +
@@ -152,11 +186,11 @@ p1 <- ger %>%
         plot.title = element_text(margin = margin(b = 20)),
         axis.line = element_line(colour = "white"))
 
-p2 <- ger %>% 
+p2 <- ger %>% filter(country == "Germany", date > "2020-12-26") %>% 
   ggplot(aes(date, daily_vaccinations)) + 
   geom_col(fill = "azure4", color = "azure4") +
   geom_col(
-    data = filter(ger, date > "2021-04-06" ), fill = "coral3", colour = "coral3") +
+    data = filter(ger, country == "Germany", date > "2021-04-06" ), fill = "#80cb9f", colour = "#80cb9f") +
   labs(x = "",
        y = "Daily Vaccinations") +
   scale_x_date(limits = c(as.Date("2020-01-20"), as.Date("2021-08-20")),
@@ -178,10 +212,10 @@ p2 <- ger %>%
         plot.title = element_text(margin = margin(b = 20)),
         axis.line = element_line(colour = "white"))
 
-p3 <- ger %>% 
+p3 <- ger %>% filter(country == "Germany") %>% 
   ggplot(aes(date, icu_patients)) + 
   geom_area(fill = "azure4") +
-  geom_area(data = filter(ger, (date > "2020-10-15")), color = "coral3", fill = "coral3") +
+  geom_area(data = filter(ger, country == "Germany", date > "2020-10-15"), color = "#80cb9f", fill = "#80cb9f") +
   labs(x = "Date",
        y = "ICU Patients") +
   scale_x_date(limits = c(as.Date("2020-01-20"), as.Date("2021-08-20")),
@@ -205,7 +239,7 @@ p1 / p2 / p3
 
 ```
 
-We can see from the figure that the number of ICU patients increased in line with the number of COVID19 cases. Likewise, the number of ICU patients fell as the vaccine rate increased. This highlights the positive impact of the vaccines in preventing hospitalization to COVID19 as a minimum.
+The top two figures were combined with the figure showing the number of ICU patients to highlight how patient numbers increased in line with the number of COVID19 cases. Likewise, the number of ICU patients fell as the vaccine rate increased. This highlights the positive impact of the vaccines in preventing hospitalization to COVID19 as a minimum.
 
 
 # References
